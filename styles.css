@@ -1,0 +1,53 @@
+.search_form {
+  width: 100%;
+}
+
+.search_form_row {
+  width: 100%;
+}
+
+.search_form_row > span {
+  display: inline-block;
+  width: 30%;
+}
+
+.search_form_row input[type='text'] {
+  display: inline-block;
+  width: 60%;
+}
+
+.search_form_row .search_checkboxes {
+    display: inline-block;
+    width: 60%;
+}
+
+.search_form_row ul {
+  width: 100%;
+  padding: 0;
+}
+
+.search_form_row .search_checkboxes li {
+    display: inline-block;
+    width: 45%;
+}
+
+/* Search results */
+
+.entry-content .search-result-item {
+  width: 100%;
+}
+
+.entry-content .search-result-item .entry-year {
+  display: inline-block;
+  width: 8.3333%;
+  vertical-align: top;
+}
+
+.entry-content .search-result-item .entry-details {
+  display: inline-block;
+  width: 80%;
+}
+
+.entry-content .search-result-item .entry-title {
+  font-weight: bold;
+}
