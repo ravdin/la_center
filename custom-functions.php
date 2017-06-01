@@ -19,6 +19,8 @@ function et_custom_search() {
     et_get_search_param('title', $params);
     et_get_search_param('description', $params);
     et_get_search_param('region', $params);
+    et_get_search_param('start', $params);
+    et_get_search_param('end', $params);
 
     if (!empty($_POST['keywords'])) {
       $params['keywords'] = array_map(sanitize_text_field, explode(',', $_POST['keywords']));

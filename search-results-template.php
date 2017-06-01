@@ -15,6 +15,8 @@ $author = get_field('author');
 $title = get_field('title');
 $description = get_field('description');
 $region = get_field('region');
+$start = get_field('start');
+$end = get_field('end');
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : array();
 $publication_type = isset($_GET['publication_type']) ? $_GET['publication_type'] : array();
 // retrieve our pagination if applicable
@@ -38,6 +40,8 @@ add_to_query('authors_names', $author, 'LIKE', $args);
 add_to_query('entry_title', $title, 'LIKE', $args);
 add_to_query('description', $description, 'LIKE', $args);
 add_to_query('geographic_region', $region, 'LIKE', $args);
+add_to_query('year', $start, '>=', $args);
+add_to_query('year', $end, '<=', $args);
 
 if (!empty($keywords)) {
   if (!is_array($keywords)) {
@@ -63,14 +67,18 @@ if (!empty($publication_type)) {
 
 $entries = pods('entry');
 $the_query = new WP_Query($args);
+$total_count = $the_query->found_posts;
 
 get_header(); ?>
 	<section id="primary" class="et_pb_section et_pb_fullwidth_section">
 		<main id="main" class="site-main" role="main">
 			<header class="page-header">
 				<h1 class="page-title">
-					Search Results
+					Research Database Search Results
 				</h1>
+        <h3>
+          Your search returned <?= $total_count ?> result<?= $total_count == 1 ? '' : 's' ?>.
+        </h3>
 			</header><!-- .page-header -->
       <div class="et_pb_row et_pb_row_3-4_1-4">
         <div class="et_pb_column et_pb_column_1_4 et_pb_column_0 et_pb_column_single">

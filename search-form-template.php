@@ -58,6 +58,12 @@ get_header();
           <input id="region" name="region" type="text" />
         </div>
         <div class="search_form_row">
+          <span>Year</span>
+          <input id="start" name="start" type="number" style="width:20%" />
+          &nbsp;to&nbsp;
+          <input id="end" name="end" type="number" style="width:20%" />
+        </div>
+        <div class="search_form_row">
           <span>Publication Type</span>
           <div class="search_checkboxes">
             <ul>

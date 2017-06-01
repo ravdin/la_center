@@ -9,6 +9,7 @@
 .search_form_row > span {
   display: inline-block;
   width: 30%;
+  vertical-align: top;
 }
 
 .search_form_row input[type='text'] {
