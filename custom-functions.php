@@ -1,5 +1,6 @@
 <?php
 
+// Allow FacetWP to work with the WP query.
 add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
 	if ( isset( $query->query['custom_query'] ) ) {
 		$is_main_query = true;
@@ -13,12 +14,31 @@ function et_get_search_param($name, &$params) {
   }
 }
 
+// Apply LIKE compare to title searches.
+add_filter( 'posts_where', 'post_title_where', 10, 2 );
+function post_title_where( $where, &$wp_query )
+{
+    global $wpdb;
+    if ( $title = $wp_query->get( 'title' ) ) {
+        $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . $wpdb->esc_like( $title ) . '%\'';
+    }
+    return $where;
+}
+
+// Sort the Year facet in descending order.
+add_filter( 'facetwp_facet_orderby', function( $orderby, $facet ) {
+    if ( 'Year' == $facet['name'] ) {
+        $orderby = 'f.facet_display_value+0 DESC';
+    }
+    return $orderby;
+}, 10, 2 );
+
+// Process the POST parameters from the search and redirect.
 function et_custom_search() {
     $params = array();
     et_get_search_param('author', $params);
     et_get_search_param('title', $params);
     et_get_search_param('description', $params);
-    et_get_search_param('region', $params);
     et_get_search_param('start', $params);
     et_get_search_param('end', $params);
 
@@ -92,62 +112,4 @@ function cf_search_distinct( $where ) {
 }
 add_filter( 'posts_distinct', 'cf_search_distinct' );
 
-
-
-$swp_query = new SWP_Query(
-	array(
-		's' => '',            // search query
-		'engine' => 'entry_search_engine',      // engine to use
-		'posts_per_page' => 10,     // posts per page
-		'nopaging' => false,        // disable paging?
-		'page' => 1,                // which page of results
-		'tax_query' => array(       // tax_query support
-		'meta_query' => array(      // meta_query support
-			array(
-				'key'     => 'age',
-				'value'   => array( 3, 4 ),
-				'compare' => 'IN',
-			),
-		),
-	)
-);
-
-function search_results() {
-  $fields = ['author', 'title', 'keywords', 'description', 'region', 'publication'];
-  // TODO: Validate
-  $page = isset($_GET['page']) ? $_GET['page'] : 1;
-  $limit = 5;
-  $where = array();
-  $params = compact($page, $limit, $where);
-  $result = '';
-
-  $entries = pods('entry');
-  $entries->find($params);
-  if ($entries->total() > 0) {
-    while ($entries->fetch()) {
-      $year = $entries->display('year');
-      $title = $entries->display('title');
-      $source = $entries->display('source');
-      $permalink = $entries->field('permalink');
-      $authors_names = $entries->display('authors_names');
-      $result .= "
-       <div class=\"search-result-item\">
-         <div class=\"entry-year\">
-           {$year}
-         </div>
-         <div class=\"entry-details\">
-           <div class=\"entry-title\">
-             <a href=\"${permalink}\">{$title}</a>
-           </div>
-           <div>By&nbsp;{$authors_names}</div>
-           <div>{$source}</div>
-         </div>
-       </div>";
-    }
-  }
-
-  return $result;
-}
-
-add_shortcode('search_results', 'search_results')
 ?>

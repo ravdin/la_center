@@ -31,8 +31,11 @@ get_header();
      })
    })
  </script>
-
-  <div class="et_pb_row et_pb_row_3-4_1-4">
+<div class="et_pb_row">
+    <h1>Urban Natural Resources Research Database</h1>
+    <h4>A curated database of scientific work on environmental, urban ecosystem, urban natural resources and socioeconomic topics relevant to the southern California region.</h4>
+</div>
+<div class="et_pb_row et_pb_row_3-4_1-4">
   <div class="et_pb_column et_pb_column_3_4">
     <form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="POST">
       <input type="hidden" name="action" value="search_form">
@@ -52,10 +55,6 @@ get_header();
         <div class="search_form_row">
           <span>Description</span>
           <input id="description" name="description" type="text" />
-        </div>
-        <div class="search_form_row">
-          <span>Geographic region</span>
-          <input id="region" name="region" type="text" />
         </div>
         <div class="search_form_row">
           <span>Year</span>
@@ -80,8 +79,13 @@ get_header();
       </div>
     </form>
   </div>
-  <div id="tag_cloud" class="et_pb_column et_pb_column_1_4">
-    <?php wp_tag_cloud( array( 'taxonomy' => 'keyword' ) ); ?>
+  <div class="et_pb_column et_pb_column_1_4">
+    <h3>New entries:</h3>
+    <div>Do you have a suggestion for a database entry? Send us an <a href="mailto:info@laurbanresearchcenter.org">email</a> with the title and link.</div>
   </div>
+</div>
+<div id="tag_cloud" class="et_pb_row" style="padding-top:0">
+  <h3>Keywords</h3>
+  <?php wp_tag_cloud( array( 'taxonomy' => 'keyword' ) ); ?>
 </div>
 <?php get_footer();  ?>
