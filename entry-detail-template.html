@@ -1,0 +1,43 @@
+<style type="text/css">
+  h1.entry-title {
+    padding-bottom: 0;
+  }
+  .et_pb_post .entry-content {
+    padding-top: 5px;
+  }
+	.et_right_sidebar #main-content .container:before {
+		display: none;
+	}
+	#left-area {
+		width: 100%!important;
+	}
+	#left-area .post-meta {
+		display: none;
+	}
+	.property-label {
+		font-weight: bold;
+	}
+	.entry-content div {
+    padding-top: 10px;
+	}
+</style>
+
+<h4>by {@authors_names}</h4>
+<div>
+	<span style="float:left">{@source}</span>
+	<span style="float:right;font-weight:bold">{@year}</span>
+</div>
+<div style="clear:both">{@description}</div>
+[if geographic_region]
+<div>
+	<span class="property-label">Region:</span> {@geographic_region}
+</div>
+[/if]
+<div>
+	<span class="property-label">Publication Type:</span> {@publication_type}</div>
+<div>
+	<span class="property-label">Keywords:</span> {@keyword}
+</div>
+<div style="padding-top: 30px;">
+	<a class="et_pb_button" href="{@url}" target="_blank">View</a>
+</div>

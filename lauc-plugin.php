@@ -1,4 +1,26 @@
 <?php
+/*
+Plugin Name: LAUC Extension
+Version: 0.0.1
+License: GPL v2 or later
+*/
+
+wp_enqueue_script('jquery-ui-autocomplete');
+wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css');
+
+function search_keywords() {
+  $term = strtolower($_GET['term']);
+  $keywords = get_terms(array(
+    'taxonomy' => 'keyword',
+    'name__like' => $term
+  ));
+  $keywords = array_map(function ($k) { return $k->name; }, $keywords);
+  echo json_encode($keywords);
+  die();
+}
+
+add_action( 'wp_ajax_search_keywords', 'search_keywords' );
+add_action( 'wp_ajax_nopriv_search_keywords', 'search_keywords' );
 
 // Allow FacetWP to work with the WP query.
 add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
@@ -19,7 +41,7 @@ add_filter( 'posts_where', 'post_title_where', 10, 2 );
 function post_title_where( $where, &$wp_query )
 {
     global $wpdb;
-    if ( $title = $wp_query->get( 'title' ) ) {
+    if ( $title = $wp_query->get( 'search_title' ) ) {
         $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . $wpdb->esc_like( $title ) . '%\'';
     }
     return $where;
@@ -50,8 +72,12 @@ function et_custom_search() {
       $params['publication_type'] = $_POST['publication_type'];
     }
 
+    if (isset($params['description'])) {
+      $params['description'] = str_replace('\"', '"', $params['description']);
+    }
+
     $queryString = http_build_query($params);
-    wp_redirect('/search-results?' . $queryString);
+    wp_redirect('/lauc/search-results?' . $queryString);
 }
 
 add_action( 'admin_post_search_form', 'et_custom_search' );

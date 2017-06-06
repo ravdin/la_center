@@ -19,14 +19,37 @@ get_header();
      return r;
    }
    jQuery(document).ready(function() {
+     jQuery('#keywords').autocomplete({
+       source: function(request, response) {
+         var terms = request.term.split(/,\s+/);
+         var term = terms[terms.length - 1];
+         jQuery.ajax({
+            url: '<?php echo esc_url( admin_url('admin-ajax.php?action=search_keywords') ); ?>',
+            dataType: "json",
+            data: {
+                term: term,
+            },
+            success: response,
+            error: function() {
+                response([]);
+            }
+         });
+       },
+       select: function(e, ui) {
+         var keyword = ui.item.value;
+         var keywords = jQuery("#keywords").val().split(/,\s+/);
+         keywords.pop();
+         keywords.push(keyword);
+         jQuery("#keywords").val(keywords.join(', ') + ', ');
+         return false;
+       },
+       delay: 150,
+       minLength: 3
+     });
      jQuery("#tag_cloud a").click(function(e) {
        e.preventDefault();
        var link = jQuery(this);
-       var keywords = jQuery("#keywords").val().split(/,\s+/);
-       keywords = keywords.filter(function(x) { return x.length > 0; })
-       keywords.push(link.text());
-       keywords = unique(keywords);
-       jQuery("#keywords").val(keywords.join(', '));
+       document.location.href = '/lauc/search-results?keywords[]=' + link.text();
        return false;
      })
    })
@@ -37,33 +60,34 @@ get_header();
 </div>
 <div class="et_pb_row et_pb_row_3-4_1-4">
   <div class="et_pb_column et_pb_column_3_4">
-    <form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="POST">
+    <h3>Search the database:</h3>
+    <form action="<?php echo esc_url( admin_url('admin-ajax.php') ); ?>" method="POST">
       <input type="hidden" name="action" value="search_form">
       <div class="search_form">
         <div class="search_form_row">
           <span>Author last name</span>
-          <input id="author" name="author" type="text" />
+          <input id="author" name="author" type="text" placeholder="McPherson" />
         </div>
         <div class="search_form_row">
           <span>Title</span>
-          <input id="title" name="title" type="text" />
+          <input id="title" name="title" type="text" placeholder="Urban forestry in North America" />
         </div>
         <div class="search_form_row">
           <span>Keywords</span>
-          <input id="keywords" name="keywords" type="text" />
+          <input id="keywords" name="keywords" type="text" placeholder="air quality" />
         </div>
         <div class="search_form_row">
           <span>Description</span>
-          <input id="description" name="description" type="text" />
+          <input id="description" name="description" type="text" placeholder="Sacramento Greenprint" />
         </div>
         <div class="search_form_row">
           <span>Year</span>
-          <input id="start" name="start" type="number" style="width:20%" />
+          <input id="start" name="start" type="number" style="width:20%" placeholder="1984" />
           &nbsp;to&nbsp;
-          <input id="end" name="end" type="number" style="width:20%" />
+          <input id="end" name="end" type="number" style="width:20%" placeholder="2017" />
         </div>
         <div class="search_form_row">
-          <span>Publication Type</span>
+          <span>Publication type</span>
           <div class="search_checkboxes">
             <ul>
               <?php foreach ($types as $type_display):

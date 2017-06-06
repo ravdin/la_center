@@ -11,6 +11,18 @@ function add_to_query($key, $value, $compare, &$args) {
   }
 }
 
+function add_description_to_query($description, &$args) {
+  if (empty($description)) {
+    return;
+  }
+  $query = array('relation' => 'AND');
+  $words = preg_split('/\s+/', $description, -1, PREG_SPLIT_NO_EMPTY);
+  foreach ($words as $word) {
+    $query[] = array('key' => 'description', 'value' => $word, 'compare' => 'LIKE');
+  }
+  $args['meta_query'][] = $query;
+}
+
 function get_sort_link($field, $display, $orderby, $order) {
   $query_data = $_GET;
   $query_data['orderby'] = $field;
@@ -58,7 +70,7 @@ $args = array(
 );
 
 if (!empty($title)) {
-  $args['title'] = $title;
+  $args['search_title'] = $title;
 }
 
 if (!isset($orderby_fields[$orderby])) {
@@ -68,7 +80,7 @@ if (!isset($orderby_fields[$orderby])) {
 $args = array_merge($args, $orderby_fields[$orderby]);
 
 add_to_query('authors_names', $author, 'LIKE', $args);
-add_to_query('description', $description, 'LIKE', $args);
+add_description_to_query($description, $args);
 add_to_query('year', $start, '>=', $args);
 add_to_query('year', $end, '<=', $args);
 
@@ -111,9 +123,10 @@ get_header(); ?>
           <p>Sorry, no results were found.</p>
           <p>Search suggestions:</p>
           <ul style="list-style-type:disc; margin: 20px;">
-             <li>Move your keyword search term to the description field.</li>
+             <li>Double check your spelling.</li>
+             <li>Enter fewer search parameters. You’ll have a chance to refine further on the Search Results page.</li>
              <li>Try different wording, e.g., CO2 --> carbon or carbon dioxide; air pollutant --> air pollution</li>
-             <li>Double-check the spelling of the author’s name.</li>
+             <li>Try your search in the Description field.</li>
           </ul>
         </div>
       <?php else: ?>
