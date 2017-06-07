@@ -81,6 +81,7 @@ function et_custom_search() {
 }
 
 add_action( 'admin_post_search_form', 'et_custom_search' );
+add_action( 'admin_post_nopriv_search_form', 'et_custom_search' );
 
 /**
  * Extend WordPress search to include custom fields

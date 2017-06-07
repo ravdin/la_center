@@ -63,7 +63,7 @@ if (!in_array($order, $order_fields)) {
 $args = array(
   "post_type" => "entry",
   "post_status" => "publish",
-  "posts_per_page" => 25,
+  "posts_per_page" => 20,
   "order" => $order,
   "custom_query" => true,
   "meta_query" => array()
@@ -164,6 +164,7 @@ get_header(); ?>
                         <a href="<?= $entries->display('permalink') ?>"><?= $entries->display('title') ?></a>
                       </div>
                       <div>By&nbsp;<?= $entries->display('authors_names') ?></div>
+                      <div class="visible-xs"><?= $entries->display('year') ?></div>
                       <div><?= $entries->display('source') ?></div>
                     </div>
                   </div>

@@ -40,6 +40,18 @@
     width: 45%;
 }
 
+@media screen and (max-width: 767px) {
+  .search_form_row > span {
+    display: block;
+    width: 100%;
+  }
+
+  .search_form_row .search_checkboxes,
+  .search_form_row .search_checkboxes li {
+      width: 100%;
+  }
+}
+
 /* Search results */
 
 .page-header {
@@ -87,4 +99,16 @@
 
 .entry-content .search-result-item .entry-title {
   font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+  .entry-year {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  visible-xs: {
+    display: none!important;
+  }
 }

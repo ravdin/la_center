@@ -56,7 +56,7 @@ get_header();
  </script>
 <div class="et_pb_row">
     <h1>Urban Natural Resources Research Database</h1>
-    <h4>A curated database of scientific work on environmental, urban ecosystem, urban natural resources and socioeconomic topics relevant to the southern California region.</h4>
+    <h3 style="color:#a4c954;">A curated database of scientific work on environmental, urban ecosystem, urban natural resources and socioeconomic topics relevant to the southern California region.</h3>
 </div>
 <div class="et_pb_row et_pb_row_3-4_1-4">
   <div class="et_pb_column et_pb_column_3_4">
