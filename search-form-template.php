@@ -66,25 +66,25 @@ get_header();
       <div class="search_form">
         <div class="search_form_row">
           <span>Author last name</span>
-          <input id="author" name="author" type="text" placeholder="McPherson" />
+          <input id="author" name="author" type="text" />
         </div>
         <div class="search_form_row">
           <span>Title</span>
-          <input id="title" name="title" type="text" placeholder="Urban forestry in North America" />
+          <input id="title" name="title" type="text" />
         </div>
         <div class="search_form_row">
           <span>Keywords</span>
-          <input id="keywords" name="keywords" type="text" placeholder="air quality" />
+          <input id="keywords" name="keywords" type="text" />
         </div>
         <div class="search_form_row">
           <span>Description</span>
-          <input id="description" name="description" type="text" placeholder="Sacramento Greenprint" />
+          <input id="description" name="description" type="text" />
         </div>
         <div class="search_form_row">
           <span>Year</span>
-          <input id="start" name="start" type="number" style="width:20%" placeholder="1984" />
+          <input id="start" name="start" type="number" style="width:20%" />
           &nbsp;to&nbsp;
-          <input id="end" name="end" type="number" style="width:20%" placeholder="2017" />
+          <input id="end" name="end" type="number" style="width:20%" />
         </div>
         <div class="search_form_row">
           <span>Publication type</span>
@@ -110,6 +110,6 @@ get_header();
 </div>
 <div id="tag_cloud" class="et_pb_row" style="padding-top:0">
   <h3>Keywords</h3>
-  <?php wp_tag_cloud( array( 'taxonomy' => 'keyword' ) ); ?>
+  <?php wp_tag_cloud( array( 'taxonomy' => 'keyword', 'number' => 0 ) ); ?>
 </div>
 <?php get_footer();  ?>
