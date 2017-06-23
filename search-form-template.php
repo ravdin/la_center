@@ -49,7 +49,7 @@ get_header();
      jQuery("#tag_cloud a").click(function(e) {
        e.preventDefault();
        var link = jQuery(this);
-       document.location.href = '/lauc/search-results?keywords[]=' + link.text();
+       document.location.href = '/research/search-results?keywords[]=' + link.text();
        return false;
      })
    })
@@ -61,7 +61,7 @@ get_header();
 <div class="et_pb_row et_pb_row_3-4_1-4">
   <div class="et_pb_column et_pb_column_3_4">
     <h3>Search the database:</h3>
-    <form action="<?php echo esc_url( admin_url('admin-ajax.php') ); ?>" method="POST">
+    <form action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="POST">
       <input type="hidden" name="action" value="search_form">
       <div class="search_form">
         <div class="search_form_row">

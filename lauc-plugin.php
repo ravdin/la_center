@@ -77,7 +77,7 @@ function et_custom_search() {
     }
 
     $queryString = http_build_query($params);
-    wp_redirect('/lauc/search-results?' . $queryString);
+    wp_redirect('/research/search-results?' . $queryString);
 }
 
 add_action( 'admin_post_search_form', 'et_custom_search' );

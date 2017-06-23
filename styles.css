@@ -108,7 +108,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  visible-xs: {
+  .visible-xs {
     display: none!important;
   }
 }
