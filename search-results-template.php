@@ -1,7 +1,7 @@
 <?php
 /* Template Name: Search Results */
 // retrieve our search query if applicable
-function get_field($param) {
+function get_field_value($param) {
   return isset($_GET[$param]) ? sanitize_text_field($_GET[$param]) : '';
 }
 
@@ -35,13 +35,13 @@ function get_sort_link($field, $display, $orderby, $order) {
   return "<a href=\"$url?$qs\">$display</a>";
 }
 
-$author = get_field('author');
-$title = get_field('title');
-$description = get_field('description');
-$start = get_field('start');
-$end = get_field('end');
-$orderby = get_field('orderby');
-$order = get_field('order');
+$author = get_field_value('author');
+$title = get_field_value('title');
+$description = get_field_value('description');
+$start = get_field_value('start');
+$end = get_field_value('end');
+$orderby = get_field_value('orderby');
+$order = get_field_value('order');
 $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : array();
 $publication_type = isset($_GET['publication_type']) ? $_GET['publication_type'] : array();
 
